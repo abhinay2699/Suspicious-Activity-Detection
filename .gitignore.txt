@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.env
+
+# Logs
+prediction_logs.csv
+
+# Videos (VERY IMPORTANT)
+output_videos/
+uploads/
+*.avi
+*.mp4
+*.mov
+
+# Models
+model/
+*.h5
