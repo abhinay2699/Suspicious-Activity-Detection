@@ -10,6 +10,10 @@ from datetime import datetime
 from email.message import EmailMessage
 from keras.models import load_model
 from utils.prediction import predict_on_video
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Constants
 IMAGE_HEIGHT, IMAGE_WIDTH = 64, 64
@@ -28,10 +32,14 @@ if not os.path.exists(log_path):
 
 # Email Alert Function
 def send_email_alert(activity, confidence):
-    EMAIL_ADDRESS = "tambepatil2699@gmail.com"     # Replace with your email
-    EMAIL_PASSWORD = "iywrslehzzybzrsa"             # Replace with your app password
-    RECEIVER_EMAIL = "daku78451@gmail.com"     # Replace with recipient email
+       EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+    EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+    RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
 
+    if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
+        st.error("❌ Email credentials not found. Check .env file.")
+        return
+        
     msg = EmailMessage()
     msg["Subject"] = "🚨 Suspicious Activity Detected!"
     msg["From"] = EMAIL_ADDRESS
